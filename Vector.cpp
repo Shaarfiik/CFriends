@@ -1,4 +1,5 @@
 #include <iostream>
+#include <locale>
 
 class Vector {
 private:
@@ -21,6 +22,7 @@ Vector operator*(const Vector& vec, double scalar) {
 }
 
 int main() {
+    std::setlocale(LC_ALL, "RU");
     Vector vec(3, 4);
     double scalar = 2.5;
 
