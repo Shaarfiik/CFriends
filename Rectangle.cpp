@@ -1,31 +1,46 @@
 #include <iostream>
+#include <locale>
 
-class Rectangle {
+class Account {
 private:
-    double width;
-    double height;
+    double balance;
 
 public:
-    Rectangle(double w, double h) : width(w), height(h) {}
+    Account(double initialBalance) : balance(initialBalance) {}
 
-    // Äðóæåñòâåííàÿ ôóíêöèÿ äëÿ ñðàâíåíèÿ ïëîùàäåé äâóõ ïðÿìîóãîëüíèêîâ
-    friend bool compareArea(const Rectangle& rect1, const Rectangle& rect2);
+    double getBalance() const {
+        return balance;
+    }
+
+    // Ð”Ñ€ÑƒÐ¶ÐµÑÑ‚Ð²ÐµÐ½Ð½Ñ‹Ð¹ ÐºÐ»Ð°ÑÑ Bank
+    friend class Bank;
 };
 
-bool compareArea(const Rectangle& rect1, const Rectangle& rect2) {
-    return (rect1.width * rect1.height) > (rect2.width * rect2.height);
-}
+class Bank {
+public:
+    void deposit(Account& account, double amount) {
+        account.balance += amount;
+        std::cout << "ÐŸÐ¾Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¾: " << amount << ", ÐÐ¾Ð²Ñ‹Ð¹ Ð±Ð°Ð»Ð°Ð½Ñ: " << account.getBalance() << std::endl;
+    }
+
+    void withdraw(Account& account, double amount) {
+        if (amount <= account.balance) {
+            account.balance -= amount;
+            std::cout << "Ð¡Ð½ÑÑ‚Ð¾: " << amount << ", ÐÐ¾Ð²Ñ‹Ð¹ Ð±Ð°Ð»Ð°Ð½Ñ: " << account.getBalance() << std::endl;
+        } else {
+            std::cout << "ÐÐµÐ´Ð¾ÑÑ‚Ð°Ñ‚Ð¾Ñ‡Ð½Ð¾ ÑÑ€ÐµÐ´ÑÑ‚Ð² Ð´Ð»Ñ ÑÐ½ÑÑ‚Ð¸Ñ." << std::endl;
+        }
+    }
+};
 
 int main() {
-    Rectangle rect1(5, 10);
-    Rectangle rect2(4, 12);
+    sts::setlocale(LC_ALL, "RU");
+    Account myAccount(1000);
+    Bank myBank;
 
-    if (compareArea(rect1, rect2)) {
-        std::cout << "Ïåðâûé ïðÿìîóãîëüíèê áîëüøå âòîðîãî ïî ïëîùàäè." << std::endl;
-    }
-    else {
-        std::cout << "Ïåðâûé ïðÿìîóãîëüíèê íå áîëüøå âòîðîãî ïî ïëîùàäè." << std::endl;
-    }
+    myBank.deposit(myAccount, 200);
+    myBank.withdraw(myAccount, 150);
+    myBank.withdraw(myAccount, 1200); // ÐŸÐ¾Ð¿Ñ‹Ñ‚ÐºÐ° ÑÐ½ÑÑ‚ÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ, Ñ‡ÐµÐ¼ ÐµÑÑ‚ÑŒ Ð½Ð° ÑÑ‡ÐµÑ‚Ðµ
 
     return 0;
 }
