@@ -8,9 +8,9 @@ private:
 public:
     Vector(double xCoord, double yCoord) : x(xCoord), y(yCoord) {}
 
-    // Дружественная функция для перегрузки оператора *
+    // Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РїРµСЂРµРіСЂСѓР·РєРё РѕРїРµСЂР°С‚РѕСЂР° *
     friend Vector operator*(const Vector& vec, double scalar);
-
+    
     void display() const {
         std::cout << "Vector(" << x << ", " << y << ")" << std::endl;
     }
@@ -25,9 +25,9 @@ int main() {
     double scalar = 2.5;
 
     Vector result = vec * scalar;
-    std::cout << "Исходный вектор: ";
+    std::cout << "РСЃС…РѕРґРЅС‹Р№ РІРµРєС‚РѕСЂ: ";
     vec.display();
-    std::cout << "Умноженный на скаляр " << scalar << ": ";
+    std::cout << "РЈРјРЅРѕР¶РµРЅРЅС‹Р№ РЅР° СЃРєР°Р»СЏСЂ " << scalar << ": ";
     result.display();
 
     return 0;
